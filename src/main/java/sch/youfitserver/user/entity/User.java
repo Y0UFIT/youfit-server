@@ -10,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -34,5 +34,10 @@ public class User {
         this.full_name = full_name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+    }
+    public void update(String dateOfBirth, String full_name, String gender) {
+        this.dateOfBirth = dateOfBirth;
+        this.full_name = full_name;
+        this.gender = gender;
     }
 }

@@ -41,7 +41,7 @@ public class KakaoService {
                         .queryParam("client_id", clientId)
                         .queryParam("code", code)
                         .build(true))
-                .header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED.toString())
+                .header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED + "; charset=utf-8")
                 .retrieve()// HTTP요청을 받아오면 Request Body 내용이 미리 지정해둔 dto에 json이 직렬화되어 들어감.
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(new RuntimeException("Invalid Parameter")))
                 .onStatus(HttpStatusCode::is5xxServerError, clientResponse -> Mono.error(new RuntimeException("Internal Server Error")))
@@ -64,7 +64,7 @@ public class KakaoService {
                         .path("/v2/user/me")   // https://kapi.kakao.com/v2/user/me url 헤더에 Bearer token을 추가해서 get요청을 보냄
                         .build(true))
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken) // accessToken 인가
-                .header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED.toString())
+                .header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED + "; charset=utf-8")
                 .retrieve()// 요청을 받아오면 Response Body를 받을 수 있음
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(new RuntimeException("Invalid Parameter")))
                 .onStatus(HttpStatusCode::is5xxServerError, clientResponse -> Mono.error(new RuntimeException("Internal Server Error")))

@@ -12,7 +12,7 @@ import java.util.HashMap;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KakaoUserInfoResponseDto{
     @JsonProperty("id")                     // 회원 번호
-    public Long id;
+    public Long userId;
 
     @JsonProperty("connected_at")           // 서비스에 연결 완료된 시각. UT
     public String connectedAt;

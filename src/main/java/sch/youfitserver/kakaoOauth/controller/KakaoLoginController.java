@@ -33,7 +33,7 @@ public class KakaoLoginController {
         if(userService.findByEmail(userInfo.getKakaoAccount().getEmail()) != null) {
             return ResponseEntity.ok(userService.findByEmail(userInfo.getKakaoAccount().getEmail()));
         }
-        userService.save(userInfo);
+        userService.kakaosave(userInfo);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userInfo);
     }
