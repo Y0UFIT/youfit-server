@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sch.youfitserver.kakaoOauth.dto.KakaoUserInfoResponseDto;
-import sch.youfitserver.kakaoOauth.dto.UserRequestDto;
+import sch.youfitserver.user.dto.UserRequestDto;
 import sch.youfitserver.user.entity.User;
 import sch.youfitserver.user.repository.UserRepository;
 

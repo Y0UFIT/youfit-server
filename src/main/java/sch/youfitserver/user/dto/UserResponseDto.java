@@ -1,4 +1,4 @@
-package sch.youfitserver.kakaoOauth.dto;
+package sch.youfitserver.user.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
