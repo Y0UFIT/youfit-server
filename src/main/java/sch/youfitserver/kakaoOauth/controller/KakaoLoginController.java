@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sch.youfitserver.kakaoOauth.dto.KakaoUserInfoResponseDto;
 import sch.youfitserver.kakaoOauth.service.KakaoService;
+import sch.youfitserver.user.service.UserService;
 
 import java.io.IOException;
 
@@ -23,13 +24,17 @@ import java.io.IOException;
 public class KakaoLoginController {
 
     private final KakaoService kakaoService;
+    private final UserService userService;
 
     @GetMapping("/kakao/callback")
     public ResponseEntity<?> callback(@RequestParam("code") String code) throws IOException {
-
         String accessToken = kakaoService.getAccessTokenFromKakao(code);
         KakaoUserInfoResponseDto userInfo = kakaoService.getUserInfo(accessToken);
-        return new ResponseEntity<>(HttpStatus.OK);
-
+        if(userService.findByEmail(userInfo.getKakaoAccount().getEmail()) != null) {
+            return ResponseEntity.ok(userService.findByEmail(userInfo.getKakaoAccount().getEmail()));
+        }
+        userService.save(userInfo);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userInfo);
     }
 }

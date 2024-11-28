@@ -18,7 +18,7 @@ import sch.youfitserver.kakaoOauth.dto.KakaoUserInfoResponseDto;
 @RequiredArgsConstructor
 /**
     Webclient로 HTTP요청을 구현하기 위해 gradle에 webflux 의존성을 추가해 주었다.
- **/
+**/
 public class KakaoService {
     private String clientId;
     private final String KAUTH_TOKEN_URL_HOST;

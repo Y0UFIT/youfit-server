@@ -9,4 +9,5 @@ import sch.youfitserver.user.service.UserService;
 public class UserApiController {
 
     private final UserService userService;
+
 }

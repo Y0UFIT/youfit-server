@@ -1,4 +1,4 @@
-package sch.youfitserver.user.dao;
+package sch.youfitserver.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,16 +15,16 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "nickname", nullable = false, unique = true)
+    @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "full_name", nullable = false, unique = true)
+    @Column(name = "full_name")
     private String full_name;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private String gender;
 
-    @Column(name = "dateOfBirth", nullable = false)
+    @Column(name = "dateOfBirth")
     private String dateOfBirth;
 
     @Builder
