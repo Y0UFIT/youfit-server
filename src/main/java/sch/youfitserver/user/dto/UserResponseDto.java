@@ -16,7 +16,7 @@ public class UserResponseDto {
     private String nickname;
 
     public UserResponseDto(User user) {
-        this.profileImg = getProfileImg();
+        this.profileImg = user.getProfileImg();
         this.dateOfBirth = user.getDateOfBirth();
         this.full_name = user.getFull_name();
         this.gender = user.getGender();

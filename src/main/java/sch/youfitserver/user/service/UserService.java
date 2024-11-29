@@ -14,28 +14,29 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Long kakaosave(KakaoUserInfoResponseDto dto){
-        if(dto.getKakaoAccount().getEmail() == null || dto.getKakaoAccount().getProfile().getNickname() == null){
-            throw new IllegalArgumentException("프로필에 정보가 없습니다.");
-        }
+    public Long kakaosave(KakaoUserInfoResponseDto response){
         return userRepository.save(User.builder()
-                .nickname(dto.getKakaoAccount().getProfile().getNickname())
-                .email(dto.getKakaoAccount().getEmail())
+                .nickname(response.getKakaoAccount().getProfile().getNickname())
+                .email(response.getKakaoAccount().getEmail())
                 .build()).getUserId();
     }
+
     public User findByEmail(String email){
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("정보를 찾을 수 없습니다."));
+            return userRepository.findByEmail(email).orElse(null);
     }
+
     @Transactional
     public User update(Long userId, UserRequestDto request){
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("정보를 찾을 수 없습니다."));
-        user.update(request.toEntity().getDateOfBirth(), request.toEntity().getFull_name(), request.toEntity().getGender());
+        User user = userRepository.findById(userId).orElse(null);
+        user.update(request.toEntity().getDateOfBirth(), request.toEntity().getFull_name(),
+                    request.toEntity().getGender(), request.getProfileImg());
         return user;
     }
     public User findById(Long userId){
+        if(userId == null) {
+            return null;
+        }
         return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다"));
+                .orElse(null);
     }
 }

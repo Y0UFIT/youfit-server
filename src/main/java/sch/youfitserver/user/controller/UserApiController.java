@@ -1,6 +1,7 @@
 package sch.youfitserver.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -23,8 +24,11 @@ public class UserApiController {
                 .body(updateuser);
     }
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserResponseDto> findUser(@PathVariable Long userId){
+    public ResponseEntity<?> findUser(@PathVariable Long userId){
         User user = userService.findById(userId);
+        if(user == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
         return ResponseEntity.ok()
                 .body(new UserResponseDto(user));
     }

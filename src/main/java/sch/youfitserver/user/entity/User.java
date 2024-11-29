@@ -27,17 +27,22 @@ public class User {
     @Column(name = "dateOfBirth")
     private String dateOfBirth;
 
+    @Column(name = "profileImg")
+    private String profileImg;
+
     @Builder
-    public User(String email, String nickname, String full_name, String gender, String dateOfBirth) {
+    public User(String email, String nickname, String full_name, String gender, String dateOfBirth, String profileImg) {
         this.email = email;
         this.nickname = nickname;
         this.full_name = full_name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+        this.profileImg = profileImg;
     }
-    public void update(String dateOfBirth, String full_name, String gender) {
+    public void update(String dateOfBirth, String full_name, String gender, String profileImg) {
         this.dateOfBirth = dateOfBirth;
         this.full_name = full_name;
         this.gender = gender;
+        this.profileImg = profileImg;
     }
 }

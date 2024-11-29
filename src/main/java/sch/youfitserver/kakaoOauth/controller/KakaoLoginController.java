@@ -30,11 +30,12 @@ public class KakaoLoginController {
     public ResponseEntity<?> callback(@RequestParam("code") String code) throws IOException {
         String accessToken = kakaoService.getAccessTokenFromKakao(code);
         KakaoUserInfoResponseDto userInfo = kakaoService.getUserInfo(accessToken);
-        if(userService.findByEmail(userInfo.getKakaoAccount().getEmail()) != null) {
+        if(userService.findByEmail(userInfo.getKakaoAccount().getEmail()) != null){
             return ResponseEntity.ok(userService.findByEmail(userInfo.getKakaoAccount().getEmail()));
+        }else{
+            userService.kakaosave(userInfo);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(userService.findByEmail(userInfo.getKakaoAccount().getEmail()));
         }
-        userService.kakaosave(userInfo);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userInfo);
     }
 }

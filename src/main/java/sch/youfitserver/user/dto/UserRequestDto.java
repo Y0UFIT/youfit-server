@@ -18,6 +18,7 @@ public class UserRequestDto {
                 .dateOfBirth(dateOfBirth)
                 .full_name(full_name)
                 .gender(gender)
+                .profileImg(profileImg)
                 .build();
     }
 }
