@@ -12,7 +12,8 @@ import sch.youfitserver.user.entity.User;
 import sch.youfitserver.user.service.UserService;
 
 @Controller
-@RequiredArgsConstructor
+@RequiredArgsConstructor  // final을 사용하는 userService를 매개변수로 갖는 생성자를 생성해줌
+/** @RequestBody : 객체를 JSON 형식을 반환한다**/
 public class UserApiController {
 
     private final UserService userService;

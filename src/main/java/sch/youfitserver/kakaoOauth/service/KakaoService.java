@@ -40,6 +40,7 @@ public class KakaoService {
                         // url 예시 : https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${client_id}&code=${code}
                         .queryParam("client_id", clientId)
                         .queryParam("code", code)
+                        .queryParam("prompt", "login")
                         .build(true))
                 .header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED + "; charset=utf-8")
                 .retrieve()// HTTP요청을 받아오면 Request Body 내용이 미리 지정해둔 dto에 json이 직렬화되어 들어감.
@@ -70,6 +71,7 @@ public class KakaoService {
                 .onStatus(HttpStatusCode::is5xxServerError, clientResponse -> Mono.error(new RuntimeException("Internal Server Error")))
                 .bodyToMono(KakaoUserInfoResponseDto.class)
                 .block();
+        log.info(" [Kakao Service] user_Id ------> {}", userInfo.getUserId());
 
         return userInfo;
     }
