@@ -1,4 +1,4 @@
-package sch.youfitserver.user.dto;
+package sch.youfitserver.user.dto.request;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;

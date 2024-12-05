@@ -6,8 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
-import sch.youfitserver.user.dto.UserRequestDto;
-import sch.youfitserver.user.dto.UserResponseDto;
+import sch.youfitserver.user.dto.request.UserRequestDto;
+import sch.youfitserver.user.dto.response.UserHomeDto;
+import sch.youfitserver.user.dto.response.UserResponseDto;
 import sch.youfitserver.user.entity.User;
 import sch.youfitserver.user.service.UserService;
 

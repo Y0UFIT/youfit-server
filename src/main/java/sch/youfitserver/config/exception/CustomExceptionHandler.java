@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestControllerAdvice
 public class CustomExceptionHandler {
+
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handelNoSuchElementException(NoSuchElementException e) {
         log.error(e.getMessage());
