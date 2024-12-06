@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import sch.youfitserver.fitness.entity.Fitness;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface FitnessRepository extends JpaRepository<Fitness, Long> {
-        Optional<Fitness> findByUser_UserId(Long userId);
+        List<Fitness> findByUser_UserId(Long userId);
 }

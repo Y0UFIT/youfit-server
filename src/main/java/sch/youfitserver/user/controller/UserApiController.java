@@ -16,7 +16,11 @@ import sch.youfitserver.user.dto.response.UserResponseDto;
 import sch.youfitserver.user.entity.User;
 import sch.youfitserver.user.service.UserService;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor  // final을 사용하는 userService를 매개변수로 갖는 생성자를 생성해줌
@@ -47,32 +51,40 @@ public class UserApiController {
         // User 테이블에서 User 조회
         User user = userService.findById(userId);
         if (user == null) {
-            return ResponseEntity.status(404).body("User not found");
+            return ResponseEntity.status(404).body("로그인을 해주세요.");
         }
-        // Fitness 테이블에서 User와 연결된 Fitness 데이터 조회
-        Optional<Fitness> fitnessOptional = fitnessRepository.findByUser_UserId(userId);
-        if (fitnessOptional.isEmpty()) {
-            return ResponseEntity.status(404).body("Fitness data not found for userId: " + userId);
+        // Fitness 테이블에서 User와 연결된 모든 Fitness 데이터 조회
+        List<Fitness> fitnessList = fitnessRepository.findByUser_UserId(userId);
+        if (fitnessList.isEmpty()) {
+            return ResponseEntity.status(404).body("운동측정 결과가 없습니다.");
         }
-        Fitness fitness = fitnessOptional.get();
-        // FitnessResult 테이블에서 Fitness와 연결된 데이터 조회
-        Optional<FitnessResult> fitnessResultOptional = fitnessResultRepository.findByFitness_fitnessId(fitness.getFitnessId());
-        if (fitnessResultOptional.isEmpty()) {
-            return ResponseEntity.status(404).body("FitnessResult data not found for fitnessId: " + fitness.getFitnessId());
+        // 가장 최근의 FitnessResult를 저장할 변수
+        FitnessResult latestFitnessResult = null;
+        // 각 Fitness에 대해 FitnessResult 데이터 조회
+        for (Fitness fitness : fitnessList) {
+            // FitnessResult 중에서 가장 최근의 결과를 찾기
+            List<FitnessResult> fitnessResultList = fitnessResultRepository.findByFitness_fitnessId(fitness.getFitnessId());
+            if (!fitnessResultList.isEmpty()) {
+                // 가장 큰 fitness_result_id를 가진 FitnessResult 찾기
+                FitnessResult maxResult = fitnessResultList.stream()
+                        .max(Comparator.comparingLong(FitnessResult::getFitnessResultId))
+                        .orElse(null);
+                // 가장 최근의 FitnessResult 업데이트
+                if (maxResult != null && (latestFitnessResult == null || maxResult.getFitnessResultId() > latestFitnessResult.getFitnessResultId())) {
+                    latestFitnessResult = maxResult;
+                }
+            }
         }
-        FitnessResult fitnessResult = fitnessResultOptional.get();
-        // 조건 확인
-        if (user.equals(fitness.getUser()) && fitness.equals(fitnessResult.getFitness())) {
-            // UserHomeDto 생성
-            UserHomeDto response = new UserHomeDto(
-                    userId,
-                    user.getNickname(),
-                    fitnessResult.getChangeChart() // FitnessResult의 원하는 필드
-            );
-            return ResponseEntity.ok(response);
+        // 가장 최근의 FitnessResult가 없으면 404 응답
+        if (latestFitnessResult == null) {
+            return ResponseEntity.status(404).body("최근 운동 측정결과를 찾을 수 없습니다.");
         }
-        // 조건이 충족되지 않으면 400 Bad Request
-        return ResponseEntity.status(400).body("Data mismatch");
+        // UserHomeDto 생성 (changeChart를 단일 값으로 포함)
+        UserHomeDto response = new UserHomeDto(
+                userId,
+                user.getNickname(),
+                latestFitnessResult.getChangeChart() // 가장 최근의 changeChart를 단일 값으로 포함
+        );
+        return ResponseEntity.ok(response);
     }
-
 }
