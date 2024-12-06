@@ -14,6 +14,7 @@ import lombok.Setter;
 public class FitnessResult {
 
     @Id
+    @Column(name = "fitness_result_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fitnessResultId;
 
