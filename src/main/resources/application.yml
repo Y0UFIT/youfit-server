@@ -6,9 +6,8 @@ server:
             charset: UTF-8
             enabled: true
             force: true
+    server:
+        timezone: Asia/Seoul
 spring:
     config:
         import: application-dev.yml
-
-    server:
-        timezone: Asia/Seoul
