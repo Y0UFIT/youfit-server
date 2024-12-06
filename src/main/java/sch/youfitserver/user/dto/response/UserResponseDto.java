@@ -1,4 +1,4 @@
-package sch.youfitserver.user.dto;
+package sch.youfitserver.user.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
