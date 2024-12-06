@@ -40,6 +40,7 @@ public class Fitness {
     @Column(name = "flight_time")
     private String flightTime;
 
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
