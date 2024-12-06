@@ -11,5 +11,5 @@ public class UserHomeDto {
 
     private Long userId;
     private String nickname;
-    private String chart;
+    private String changeChart;
 }

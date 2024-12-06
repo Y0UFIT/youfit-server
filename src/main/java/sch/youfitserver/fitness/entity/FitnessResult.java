@@ -18,13 +18,21 @@ public class FitnessResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fitnessResultId;
 
+    @Column(name = "percent")
     private String percent;
+    @Column(name = "cardio")
     private String cardio;
+    @Column(name = "muscular_strength")
     private String muscularStrength;
+    @Column(name = "muscular_endurance")
     private String muscularEndurance;
+    @Column(name = "flexibility")
     private String flexibility;
+    @Column(name = "agility")
     private String agility;
+    @Column(name = "power")
     private String power;
+    @Column(name = "change_Chart")
     private String changeChart;
 
     @ManyToOne
