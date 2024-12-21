@@ -26,6 +26,6 @@ public class Exercise {
     private String exerciseUrl;
 
     @ManyToOne
-    @JoinColumn(name = "fitness_result_id")
+    @JoinColumn(name = "fitness_result_id", nullable = false)
     private FitnessResult fitnessResult;
 }

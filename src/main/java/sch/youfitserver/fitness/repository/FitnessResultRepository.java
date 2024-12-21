@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface FitnessResultRepository extends JpaRepository<FitnessResult, Long> {
+
     Optional<FitnessResult> findByFitness_fitnessId(Long fitnessId);
 }
