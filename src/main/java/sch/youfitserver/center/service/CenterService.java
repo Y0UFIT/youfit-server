@@ -2,7 +2,6 @@ package sch.youfitserver.center.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import sch.youfitserver.center.dto.CenterDto;
 import sch.youfitserver.center.dto.CenterListDto;

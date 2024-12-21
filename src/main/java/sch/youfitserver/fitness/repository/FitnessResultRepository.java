@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface FitnessResultRepository extends JpaRepository<FitnessResult, Long> {
-    List<FitnessResult> findByFitness_fitnessId(Long fitnessId);
+
+    Optional<FitnessResult> findByFitness_fitnessId(Long fitnessId);
 }
