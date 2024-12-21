@@ -14,7 +14,7 @@ public class FitnessController {
     private final FitnessService fitnessService;
 
     @GetMapping("/fitness/{userId}/{fitnessId}")
-    public FitnessResponseDto getFitness(@PathVariable String userId, @PathVariable String fitnessId) {
+    public FitnessResponseDto getFitnessResult(@PathVariable String userId, @PathVariable String fitnessId) {
         return new FitnessResponseDto();
     }
 }
